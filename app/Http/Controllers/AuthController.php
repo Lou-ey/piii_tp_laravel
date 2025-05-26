@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-Class AuthController extends Controller {
+class AuthController extends Controller
+{
+    public function index()
+    {
+    }
+
     public function register(Request $request) {
         $validated = $request->validate([
             'name' => 'required|string|max:255',

@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\AuthController;
-
 // Mostrar o formulário
 Route::get('/register', function () {
     return view('register');

@@ -21,7 +21,7 @@ Class AuthController extends Controller {
             'password' => Hash::make($validated->password),
         ]);
 
-        return redirect()->route('admin')->with('success', 'Registration successful!');
+        return redirect()->route('admin')->with('success', 'Registration successful!'); // Redirect to admin page after registration
     }
 
     public function login(Request $request) {

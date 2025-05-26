@@ -3,23 +3,27 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-// Mostrar o formulário
+// GET register form
 Route::get('/register', function () {
     return view('register');
 })->name('register.form');
 
-// Submeter o formulário
+// POST register
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-// Mostrar login
+// GET login form
 Route::get('/login', function () {
     return view('login');
 })->name('login.form');
 
-// Submeter login
+// POST login
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-// Página admin
+// admin page
 Route::get('/admin', function () {
     return view('admin');
 })->name('admin');
+
+Route::get('/admin/create', function () {
+    return view('admin_create');
+})->name('admin.create');

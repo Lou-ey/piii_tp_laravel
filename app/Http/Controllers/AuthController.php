@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function index()
-    {
-    }
-
     public function register(Request $request) {
         $validated = $request->validate([
             'name' => 'required|string|max:255',

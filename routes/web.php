@@ -2,28 +2,24 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 
-// GET register form
-Route::get('/register', function () {
-    return view('register');
-})->name('register.form');
+// ROTAS PARA UTILIZADORES NÃO AUTENTICADOS
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
 
-// POST register
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
+});
 
-// GET login form
-Route::get('/login', function () {
-    return view('login');
-})->name('login.form');
+// LOGOUT
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-// POST login
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-
-// admin page
-Route::get('/admin', function () {
-    return view('admin');
-})->name('admin');
-
-Route::get('/admin/create', function () {
-    return view('admin_create');
-})->name('admin.create');
+// ROTAS PROTEGIDAS (APENAS PARA UTILIZADORES AUTENTICADOS)
+Route::middleware('auth')->group(function () {
+    Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin');
+    Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('admin.storeUser');
+    Route::post('/admin/categories', [AdminController::class, 'storeCategory'])->name('admin.storeCategory');
+    Route::post('/admin/products', [AdminController::class, 'storeProduct'])->name('admin.storeProduct');
+});

@@ -1,14 +1,8 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Register')
+
+@section('content')
 <h1>Register</h1>
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -19,6 +13,13 @@
         </ul>
     </div>
 @endif
+@error('password')
+<div class="text-danger">{{ $message }}</div>
+@enderror
+
+@error('password_confirmation')
+<div class="text-danger">{{ $message }}</div>
+@enderror
 <form method="POST" action="{{ route('register') }}">
     @csrf
     <div class="mb-3 form-floating">
@@ -43,6 +44,4 @@
     </div>
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-</body>
-</html>
+@endsection

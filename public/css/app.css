@@ -1,0 +1,22 @@
+body {
+    background-color: #0d1828 !important;
+    color: white !important;
+    font-family: monospace !important;
+}
+
+.nav-link,
+.alert,
+.container {
+    font-family: monospace;
+}
+
+.nav {
+    --bs-nav-link-color: white !important;
+}
+
+.nav-link:hover {
+    color: #718096 !important;
+}
+
+
+

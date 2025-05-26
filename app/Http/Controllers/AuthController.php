@@ -25,7 +25,7 @@ class AuthController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('admin')->with('success', 'Registration successful!'); // Redirect to admin page after registration
+        return redirect()->route('login')->with('success', 'Registration successful!'); // Redirect to admin page after registration
     }
 
     public function login(Request $request) {
@@ -33,10 +33,42 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('admin')->with('success', 'Login successful!');
+
+            if (Auth::user()->is_admin === true) {
+                return redirect()->route('admin')->with('success', 'Login as admin successful!');
+            }
+
+            return redirect()->route('home')->with('success', 'Login successful!');
         }
+
         return back()->withErrors([
             'email' => 'The provided credentials are invalid.',
         ]);
+    }
+
+    public function logout(Request $request) {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('success', 'Logged out successfully!');
+    }
+
+    public function showLoginForm()
+    {
+        if (Auth::check()) { //
+            return redirect()->route('admin');
+        }
+
+        return view('login');
+    }
+
+    public function showRegisterForm()
+    {
+        if (Auth::check()) {
+            return redirect()->route('admin');
+        }
+
+        return view('register');
     }
 }

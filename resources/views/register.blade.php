@@ -42,6 +42,12 @@
         <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
         <label for="password_confirmation">Confirm Password</label>
     </div>
+    <div class="mb-3">
+        <p>
+            Já tem conta?
+            <a href="{{ route('login') }}">Faça login aqui.</a>
+        </p>
+    </div>
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
 @endsection

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Product;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -10,13 +11,18 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
+        if (!auth()->check() || !auth()->user()->is_admin) {
+            //abort(403, 'Acesso não autorizado.');
+            return redirect()->route('login');
+        }
+
         $users = User::all();
         $categories = Category::all();
-        return view('admin', compact('users', 'categories'));
+        $originalProducts = Product::where('is_premium', true)->get();
+        return view('admin', compact('users', 'categories', 'originalProducts'));
     }
 
-    public function storeUser(Request $request)
-    {
+    public function storeUser(Request $request) {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users',
@@ -30,34 +36,9 @@ class AdminController extends Controller
             'username' => $validated['username'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'is_admin' => $validated['is_admin'] ?? false,
         ]);
 
         return redirect()->route('admin')->with('success', 'User created successfully!');
-    }
-
-    public function storeCategory(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:categories',
-        ]);
-
-        Category::create($validated);
-
-        return redirect()->route('admin')->with('success', 'Category created successfully!');
-    }
-
-    public function storeProduct(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
-            'price' => 'required|numeric|min:0',
-            'description' => 'nullable|string',
-        ]);
-
-        // Assuming you have a Product model and it has a category_id foreign key
-        // Product::create($validated);
-
-        return redirect()->route('admin')->with('success', 'Product created successfully!');
     }
 }

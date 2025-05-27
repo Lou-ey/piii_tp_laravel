@@ -56,17 +56,22 @@ class AuthController extends Controller
 
     public function showLoginForm()
     {
-        if (Auth::check()) { //
+        if (Auth::check() && Auth::user()->is_admin) {
             return redirect()->route('admin');
+        } else if (Auth::check() && !Auth::user()->is_admin) {
+            return redirect()->route('home');
         }
 
+        // Se não for admin, mostra o formulário normalmente
         return view('login');
     }
 
     public function showRegisterForm()
     {
-        if (Auth::check()) {
+        if (Auth::check() && Auth::user()->is_admin) {
             return redirect()->route('admin');
+        } else if (Auth::check() && !Auth::user()->is_admin) {
+            return redirect()->route('home');
         }
 
         return view('register');

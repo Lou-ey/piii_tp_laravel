@@ -24,6 +24,12 @@
         <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
         <label for="password" class="form-label">Password</label>
     </div>
+    <div class="mb-3">
+        <p>
+            Não tem conta?
+            <a href="{{ route('register') }}">Registe-se aqui.</a>
+        </p>
+    </div>
     <button type="submit" class="btn btn-primary">Login</button>
 </form>
 </div>

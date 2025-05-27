@@ -14,6 +14,7 @@ class AuthController extends Controller {
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'is_admin' => 'boolean',
         ]);
 
         User::create([
@@ -21,6 +22,7 @@ class AuthController extends Controller {
             'username' => $validated['username'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'is_admin' => $validated['is_admin'] ?? false,
         ]);
 
         return redirect()->route('login')->with('success', 'Registration successful!'); // Redirect to admin page after registration

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\AlternativeRelation;
 use Illuminate\Http\Request;
 use App\Models\Product;
-use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller {
     public function storeProduct(Request $request) {
@@ -27,7 +26,7 @@ class ProductController extends Controller {
             $imagePath = null;
         }
 
-        $isPremium = $request->boolean('is_premium'); // da
+        $isPremium = $request->boolean('is_premium');
 
         // Criar produto
         $product = Product::create([
@@ -44,9 +43,10 @@ class ProductController extends Controller {
         // Se for produto alternativo, cria a relação
         if (!$isPremium && $request->filled('original_product_id')) {
             AlternativeRelation::create([
-                'product_id' => $validated['original_product_id'],
-                'alternative_id' => $product->id,
+                'premium_product_id' => $validated['original_product_id'],
+                'alternative_product_id' => $product->id,
             ]);
+            // dd($alternativeRelations);
         }
 
         return redirect()->route('admin')->with('success', 'Produto adicionado com sucesso!');

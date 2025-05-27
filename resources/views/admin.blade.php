@@ -27,7 +27,7 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="add-category-tab" data-bs-toggle="tab" data-bs-target="#add-category" type="button" role="tab">Adicionar Categoria</button>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="add-product-tab" data-bs-toggle="tab" data-bs-target="#add-product" type="button" role="tab">Adicionar Produto Original</button>
+            <button class="nav-link" id="add-product-tab" data-bs-toggle="tab" data-bs-target="#add-product" type="button" role="tab">Adicionar Produto</button>
         </li>
     </ul>
 
@@ -69,7 +69,7 @@
                     <input type="password" name="password_confirmation" class="form-control" required>
                 </div>
                 <div class="form-check form-switch mb-3">
-                    <input class="form-check-input" type="checkbox" role="switch" id="adminSwitch" name="is_admin" value="true">
+                    <input class="form-check-input" type="checkbox" role="switch" id="adminSwitch" name="is_admin" value="1">
                     <label class="form-check-label" for="adminSwitch">Admin</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Create</button>
@@ -123,7 +123,7 @@
                     <input type="file" name="image_url" class="form-control" accept="image/*" required>
                 </div>
                 <div class="form-check form-switch mb-3">
-                    <input class="form-check-input" type="checkbox" role="switch" id="premiumSwitch" name="is_premium" value="true">
+                    <input class="form-check-input" type="checkbox" role="switch" id="premiumSwitch" name="is_premium" value="1">
                     <label class="form-check-label" for="premiumSwitch">Produto Original</label>
                 </div>
                 <!-- Campos só visíveis se NÃO for produto original -->

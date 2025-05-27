@@ -91,12 +91,12 @@
 
         <!-- Adicionar Produto -->
         <div class="tab-pane fade" id="add-product" role="tabpanel">
-            <h3>Adicionar Produto Original</h3>
-            <form action="{{ route('admin.storeProduct') }}" method="POST">
+            <h3>Adicionar Produto</h3>
+            <form action="{{ route('admin.storeProduct') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label>Nome do Produto</label>
-                    <input type="text" name="product_name" class="form-control" required>
+                    <input type="text" name="name" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label>Marca</label>
@@ -120,35 +120,49 @@
                 </div>
                 <div class="mb-3">
                     <label>Imagem</label>
-                    <input type="file" name="image" class="form-control" accept="image/*" required>
+                    <input type="file" name="image_url" class="form-control" accept="image/*" required>
                 </div>
                 <div class="form-check form-switch mb-3">
-                    <input class="form-check-input" type="checkbox" role="switch" id="premiumSwitch" name="is_premium" value="1">
+                    <input class="form-check-input" type="checkbox" role="switch" id="premiumSwitch" name="is_premium" value="true">
                     <label class="form-check-label" for="premiumSwitch">Produto Original</label>
                 </div>
-                <!-- bloqueia os campos se o produto for premium -->
-                <div class="mb-3">
-                    <label for="original-product" class="form-label">Produto Original</label>
-                    <select class="form-control" id="original-product" name="original_product_id" required>
-                        @foreach($originalProducts as $product)
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label>Imagem Alternativa</label>
-                    <input type="file" name="image" id="alternative-image" class="form-control" accept="image/*" required>
+                <!-- Campos só visíveis se NÃO for produto original -->
+                <div id="alternative-fields">
+                    <div class="mb-3">
+                        <label for="original-product" class="form-label">Associar a Produto Original</label>
+                        <select class="form-control" id="original-product" name="original_product_id">
+                            @foreach($originalProducts as $product)
+                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-success">Adicionar</button>
             </form>
         </div>
     </div>
+    <!-- Script para mostrar/esconder campos -->
+    <!--<script>
+        const premiumSwitch = document.getElementById('premiumSwitch');
+        const altFields = document.getElementById('alternative-fields');
+
+        function toggleAlternativeFields() {
+            altFields.style.display = premiumSwitch.checked ? 'none' : 'block';
+            if (!premiumSwitch.checked) {
+                document.getElementById('original-product').setAttribute('required', 'required');
+            } else {
+                document.getElementById('original-product').removeAttribute('required');
+            }
+        }
+
+        premiumSwitch.addEventListener('change', toggleAlternativeFields);
+        window.addEventListener('DOMContentLoaded', toggleAlternativeFields);
+    </script>-->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const premiumSwitch = document.getElementById('premiumSwitch');
             const fieldsToToggle = [
                 'original-product',
-                'alternative-image',
             ];
 
             function toggleFields() {
@@ -159,12 +173,9 @@
                 });
             }
 
-            // Executa ao carregar a página para definir estado inicial
             toggleFields();
 
-            // Executa sempre que a checkbox muda
             premiumSwitch.addEventListener('change', toggleFields);
         });
     </script>
-
 @endsection

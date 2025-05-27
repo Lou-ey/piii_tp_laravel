@@ -2,43 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlternativeRelation;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller {
     public function storeProduct(Request $request) {
+        // dd($request->all());
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'marca' => 'required|string|max:255',
+            'brand' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'is_premium' => 'boolean',
+            'image_url' => 'nullable|image|max:2048',
+            'original_product_id' => 'nullable|exists:products,id',
+            'is_premium' => 'nullable|boolean',
         ]);
 
-        Product::create([
+        if($request->hasFile('image_url')) {
+            $imagePath = $request->file('image_url')->store('prod_imgs', 'public');
+        } else {
+            $imagePath = null;
+        }
+
+        $isPremium = $request->boolean('is_premium'); // da
+
+        // Criar produto
+        $product = Product::create([
             'name' => $validated['name'],
-            'brand' => $validated['marca'],
+            'brand' => $validated['brand'],
             'category_id' => $validated['category_id'],
             'description' => $validated['description'],
             'price' => $validated['price'],
-            'image' => $request->file('image') ? $request->file('image')->store('images', 'public') : null,
-            'is_premium' => $validated['is_premium'] ?? false,
+            'img_url' => $imagePath,
+            'is_premium' => $isPremium,
         ]);
+        // dd($product);
 
-        return redirect()->route('admin')->with('success', 'Product created successfully!');
-    }
+        // Se for produto alternativo, cria a relação
+        if (!$isPremium && $request->filled('original_product_id')) {
+            AlternativeRelation::create([
+                'product_id' => $validated['original_product_id'],
+                'alternative_id' => $product->id,
+            ]);
+        }
 
-    public function createRelation(Request $request) {
-        $validated = $request->validate([
-            'product_id' => 'required|exists:products,id',
-            'category_id' => 'required|exists:categories,id',
-        ]);
-
-        $product = Product::findOrFail($validated['product_id']);
-        $product->categories()->attach($validated['category_id']);
-
-        return redirect()->route('admin')->with('success', 'Product-category relation created successfully!');
+        return redirect()->route('admin')->with('success', 'Produto adicionado com sucesso!');
     }
 }

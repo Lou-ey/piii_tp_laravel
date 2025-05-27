@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
+
 Class Product extends Model {
     protected $fillable = [
         'name',
@@ -8,7 +11,7 @@ Class Product extends Model {
         'category_id',
         'description',
         'price',
-        'image',
+        'image_url',
         'is_premium',
     ];
 }

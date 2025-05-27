@@ -7,8 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
-{
+class AuthController extends Controller {
     public function register(Request $request) {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -17,7 +16,6 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Create a new user record in the database
         User::create([
             'name' => $validated['name'],
             'username' => $validated['username'],

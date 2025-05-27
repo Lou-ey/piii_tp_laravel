@@ -45,7 +45,7 @@
     <div class="mb-3">
         <p>
             Já tem conta?
-            <a href="{{ route('login') }}">Faça login aqui.</a>
+            <a href="{{ route('login') }}">Faça login aqui</a>.
         </p>
     </div>
     <button type="submit" class="btn btn-primary">Register</button>

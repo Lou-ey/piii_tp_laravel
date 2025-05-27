@@ -27,7 +27,7 @@
     <div class="mb-3">
         <p>
             Não tem conta?
-            <a href="{{ route('register') }}">Registe-se aqui.</a>
+            <a href="{{ route('register') }}">Registe-se aqui</a>.
         </p>
     </div>
     <button type="submit" class="btn btn-primary">Login</button>

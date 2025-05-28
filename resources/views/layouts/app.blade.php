@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container mt-4">
+<div class="d-flex flex-column mt-4">
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -32,7 +32,7 @@
             // Remove o alerta do DOM após a animação de fade
             setTimeout(() => {
                 successAlert.remove();
-            }, 450);
+            }, 400);
         }
 
         if (errorAlert) {
@@ -41,7 +41,7 @@
             // Remove o alerta do DOM após a animação de fade
             setTimeout(() => {
                 errorAlert.remove();
-            }, 450);
+            }, 400);
         }
     }, 3000);
 </script>

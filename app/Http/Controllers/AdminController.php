@@ -19,7 +19,8 @@ class AdminController extends Controller
         $users = User::all();
         $categories = Category::all();
         $originalProducts = Product::where('is_premium', true)->get();
-        return view('admin', compact('users', 'categories', 'originalProducts'));
+        $products = Product::all();
+        return view('admin', compact('users', 'categories', 'originalProducts', 'products'));
     }
 
     public function storeUser(Request $request) {

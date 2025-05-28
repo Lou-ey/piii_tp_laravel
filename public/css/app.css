@@ -2,6 +2,8 @@ body {
     background-color: #0d1828 !important;
     color: white !important;
     font-family: monospace !important;
+    max-width: 60rem !important;
+    margin: 0 auto !important;
 }
 
 .nav-link,
@@ -17,6 +19,20 @@ body {
 .nav-link:hover {
     color: #718096 !important;
 }
+
+.nav-bar,
+.prod-item {
+    background: #1d2433;
+}
+
+.prod-item:hover {
+    background: #2d3748;
+}
+
+.row {
+
+}
+
 
 
 

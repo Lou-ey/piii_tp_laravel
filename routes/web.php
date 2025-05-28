@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\HomeController;
 
 // ROTAS PARA UTILIZADORES NÃO AUTENTICADOS
 //Route::middleware('guest')->group(function () {
@@ -24,7 +25,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('admin.storeUser');
     Route::post('/admin/categories', [CategoryController::class, 'storeCategory'])->name('admin.storeCategory');
     Route::post('/admin/products', [ProductController::class, 'storeProduct'])->name('admin.storeProduct');
-    Route::get('/home', function () {
-        return view('home'); // Rota para a página inicial do utilizador
-    })->name('home');
 });
+Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::get('/search', [ProductController::class, 'searchProducts'])->name('searchProducts');
+Route::get('/home/products', [ProductController::class, 'showProducts'])->name('showProducts');
+Route::get('/home/category/{id}/products', [ProductController::class, 'showProductsByCategory'])->name('productsByCategory');
+Route::get('/home/products/{id}', [ProductController::class, 'showProductDetails'])->name('productDetails');

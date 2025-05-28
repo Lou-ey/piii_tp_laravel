@@ -8,16 +8,30 @@
             <h1>Dashboard</h1>
             <p>Bem Vindo, {{ Auth::user()->name  }}!</p>
         </div>
-        <button class="btn btn-danger mb-3" onclick="window.location.href='{{ route('logout') }}'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
-                <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
-            </svg> Logout
-        </button>
+        <div>
+            <button class="btn btn-primary mb-3" onclick="window.location.href='{{ route('home') }}'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-house-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M8.354.146a.5.5 0 0 1 .292 0l7 4a.5.5 0 0 1 .146.708l-7 9a.5.5 0 0 1-.732 0l-7-9a.5.5 0 0 1 .146-.708l7-4zM7.5 1.207L1.207 5H2v6h12V5h.793L8.5 1.207z"/>
+                </svg>
+                Home
+            </button>
+            <button class="btn btn-danger mb-3" onclick="window.location.href='{{ route('logout') }}'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
+                    <path fill-rule="evenodd"
+                          d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+                </svg>
+                Logout
+            </button>
+        </div>
     </div>
 
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs" id="adminTab" role="tablist">
+    <ul class="nav nav-tabs justify-content-center" id="adminTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">Lista de Utilizadores</button>
         </li>
@@ -28,6 +42,9 @@
             <button class="nav-link" id="add-category-tab" data-bs-toggle="tab" data-bs-target="#add-category" type="button" role="tab">Adicionar Categoria</button>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="add-product-tab" data-bs-toggle="tab" data-bs-target="#add-product" type="button" role="tab">Adicionar Produto</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="manage-products-tab" data-bs-toggle="tab" data-bs-target="#list-products" type="button" role="tab">Gerir Produtos</button>
         </li>
     </ul>
 
@@ -139,6 +156,10 @@
                 </div>
                 <button type="submit" class="btn btn-success">Adicionar</button>
             </form>
+        </div>
+        <!-- Gerir Produtos -->
+        <div class="tab-pane fade" id="list-products" role="tabpanel">
+            <h3>Gerir Produtos</h3>
         </div>
     </div>
     <!-- Script para mostrar/esconder campos -->

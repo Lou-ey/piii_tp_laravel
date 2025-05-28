@@ -48,31 +48,38 @@
             <button class="btn btn-secondary" onclick="window.location.href='{{ route('register') }}'">Register</button>
         @endif
     </div>
-
     <div class="container">
         <div class="row">
-            <div>
-                <p>Olá, {{ Auth::user()->name }}!</p>
+            <div class="col-12">
+                <h2 class="text-center my-4">
+                    @if (isset($category))
+                        Produtos da Categoria: {{ $category->name }}
+                    @else
+                        Todas as Categorias
+                    @endif
+                </h2>
             </div>
-            <h1 class="mb-3">Categorias</h1>
-            <div class="col-md-4 col-sm-6 mb-4 d-flex justify-content-center align-items-center">
-                <a href="{{ route('showProducts') }}"
-                   class="text-decoration-none text-white">
-                    <div class="prod-item border rounded-2 text-center p-3 shadow-sm d-flex justify-content-center align-items-center" style="width: 18rem; height: 18rem;">
-                        <h5 class="card-title mb-3">Todas as Categorias</h5>
-                    </div>
-                </a>
-            </div>
-            @foreach($categories as $category)
-                <div class="col-md-4 col-sm-6 mb-4 d-flex justify-content-center align-items-center">
-                    <a href="{{ route('productsByCategory', $category->id) }}"
+            @forelse($products as $product)
+                <div class="col-md-4 col-sm-6 mb-4 d-flex justify-content-center">
+                    <a href="{{ route('productDetails', ['id' => $product->id]) }}"
                        class="text-decoration-none text-white">
-                        <div class="prod-item border rounded-2 text-center p-3 shadow-sm d-flex justify-content-center align-items-center" style="width: 18rem; height: 18rem;">
-                            <h5 class="card-title mb-3">{{ $category->name }}</h5>
+                        <div class="prod-item border rounded-2 text-center p-3 shadow-sm" style="width: 18rem;">
+                            <img src="{{ Storage::url($product->img_url) }}" class="card-img-top mx-auto"
+                                 alt="{{ $product->name }}"
+                                 style="max-height: 200px; object-fit: contain;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <p class="card-text">{{ $product->brand }}</p>
+                                <span class="badge bg-primary">{{ number_format($product->price, 2) }} €</span>
+                            </div>
                         </div>
                     </a>
                 </div>
-            @endforeach
+            @empty
+                <div class="col-12">
+                    <p class="text-center">Nenhum produto encontrado nesta categoria.</p>
+                </div>
+            @endforelse
         </div>
     </div>
 @endsection

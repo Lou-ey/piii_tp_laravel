@@ -21,18 +21,15 @@ body {
 }
 
 .nav-bar,
-.prod-item {
+.prod-item,
+.prod-details,
+.reviews-section {
     background: #1d2433;
 }
 
 .prod-item:hover {
     background: #2d3748;
 }
-
-.row {
-
-}
-
 
 
 

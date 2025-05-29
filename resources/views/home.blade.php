@@ -44,16 +44,36 @@
                 </button>
             </div>
         @else
-            <button class="btn btn-primary" onclick="window.location.href='{{ route('login') }}'">Login</button>
-            <button class="btn btn-secondary" onclick="window.location.href='{{ route('register') }}'">Register</button>
+            <a href="{{ route('home') }}" class="decoration-none text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg>
+            </a>
+            <div class="d-flex">
+                <input type="text" class="form-control" placeholder="Search..." aria-label="Search">
+                <button class="btn btn-secondary" onclick="window.location.href='{{ route('searchProducts') }}'">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.397l3.85 3.85a1 1 0 0 0 1.414-1.414l-3.85-3.85zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </div>
+            <div>
+                <button class="btn btn-primary" onclick="window.location.href='{{ route('login') }}'">Login</button>
+                <button class="btn btn-secondary" onclick="window.location.href='{{ route('register') }}'">Register</button>
+            </div>
+
         @endif
     </div>
-
     <div class="container">
         <div class="row">
-            <div>
-                <p>Olá, {{ Auth::user()->name }}!</p>
-            </div>
+            @if(Auth::check())
+                <div class="col-12 mb-4">
+                    <h4>Bem-vindo, {{ Auth::user()->name }}!</h4>
+                </div>
+            @endif
             <h1 class="mb-3">Categorias</h1>
             <div class="col-md-4 col-sm-6 mb-4 d-flex justify-content-center align-items-center">
                 <a href="{{ route('showProducts') }}"

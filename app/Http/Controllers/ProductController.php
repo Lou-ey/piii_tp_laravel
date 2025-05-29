@@ -29,7 +29,6 @@ class ProductController extends Controller {
 
         $isPremium = $request->boolean('is_premium');
 
-        // Criar produto
         $product = Product::create([
             'name' => $validated['name'],
             'brand' => $validated['brand'],
@@ -41,7 +40,7 @@ class ProductController extends Controller {
         ]);
         // dd($product);
 
-        // Se for produto alternativo, cria a relação
+        // Se for produto alternativo cria a relação
         if (!$isPremium && $request->filled('original_product_id')) {
             AlternativeRelation::create([
                 'premium_product_id' => $validated['original_product_id'],
@@ -75,8 +74,22 @@ class ProductController extends Controller {
 
     public function showProductDetails($id) {
         $product = Product::with('category')->findOrFail($id);
-        return view('product_details', compact('product'));
+
+        $alternatives = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->get();
+
+        $reviews = $product->reviews()->with('user')->get();
+
+        // Se o utilizador autenticado já fez review
+        $userReviewed = null;
+        if (auth()->check()) {
+            $userReviewed = $product->reviews()->where('user_id', auth()->id())->first();
+        }
+
+        return view('product_details', compact('product', 'alternatives', 'reviews', 'userReviewed'));
     }
+
 
     public function searchProducts(Request $request) {
         $query = $request->input('query');

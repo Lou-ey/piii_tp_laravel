@@ -3,10 +3,75 @@
 @section('title', 'Product Details')
 
 @section('content')
+    <div class="nav-bar d-flex justify-content-between align-items-center mb-4 p-3">
+        @if (Auth::check())
+            <a href="{{ route('home') }}" class="decoration-none text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg>
+            </a>
+            <div class="d-flex">
+                <input type="text" class="form-control" placeholder="Search..." aria-label="Search">
+                <button class="btn btn-secondary" onclick="window.location.href='{{ route('searchProducts') }}'">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.397l3.85 3.85a1 1 0 0 0 1.414-1.414l-3.85-3.85zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </div>
+            <div>
+                @if(Auth::user()->is_admin)
+                    <button class="btn btn-primary" onclick="window.location.href='{{ route('admin') }}'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-gear-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm2.5 10.5a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4z"/>
+                        </svg>
+                        Admin
+                    </button>
+                @endif
+                <button class="btn btn-danger" onclick="window.location.href='{{ route('logout') }}'">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
+                        <path fill-rule="evenodd"
+                              d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        @else
+            <a href="{{ route('home') }}" class="decoration-none text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg>
+            </a>
+            <div class="d-flex">
+                <input type="text" class="form-control" placeholder="Search..." aria-label="Search">
+                <button class="btn btn-secondary" onclick="window.location.href='{{ route('searchProducts') }}'">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.397l3.85 3.85a1 1 0 0 0 1.414-1.414l-3.85-3.85zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </div>
+            <div>
+                <button class="btn btn-primary" onclick="window.location.href='{{ route('login') }}'">Login</button>
+                <button class="btn btn-secondary" onclick="window.location.href='{{ route('register') }}'">Register</button>
+            </div>
+
+        @endif
+    </div>
     <div class="container">
-        <div class="row">
+        <div class="row mb-5 prod-details rounded p-4 shadow-sm">
+            {{-- Detalhes do Produto --}}
             <div class="col-md-6">
-                <img src="{{ asset('storage/' . $product->img_url) }}" class="img-fluid" alt="{{ $product->name }}">
+                <img src="{{ Storage::url($product->img_url) }}" class="img-fluid" alt="{{ $product->name }}">
             </div>
             <div class="col-md-6">
                 <h1>{{ $product->name }}</h1>
@@ -15,5 +80,79 @@
                 <p><strong>Description:</strong> {{ $product->description }}</p>
             </div>
         </div>
+
+        @if ($alternatives->count())
+            <h3 class="mb-4">Produtos Alternativos</h3>
+            <div class="row">
+                @foreach ($alternatives as $alt)
+                    <div class="col-md-3 mb-4">
+                        <a href="{{ route('productDetails', $alt->id) }}" class="text-decoration-none text-dark">
+                            <div class="border rounded p-3 text-center shadow-sm h-100">
+                                <img src="{{ Storage::url($alt->img_url) }}" class="img-fluid mb-2"
+                                     style="max-height: 150px; object-fit: contain;" alt="{{ $alt->name }}">
+                                <h6 class="text-white">{{ $alt->name }}</h6>
+                                <p class="mb-0 text-white">{{ number_format($alt->price, 2) }} €</p>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
+        <hr>
+        <h3 class="mt-5">Reviews</h3>
+        <div class="reviews-section p-3 rounded">
+            @auth
+                @if ($userReviewed)
+                    <div class="alert alert-info">Já deixaste uma review para este produto:</div>
+                    <div class="border p-3 mb-4">
+                        <strong>{{ $userReviewed->user->name }}</strong>
+                        <p class="mb-0">{{ $userReviewed->comment }}</p>
+                    </div>
+                @else
+                    <form action="{{ route('product.review', $product->id) }}" method="POST" class="mb-4">
+                        @csrf
+
+                        {{-- Rating de 1 a 5 --}}
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Classificação:</label>
+                            <select name="rating" id="rating" class="form-select" required>
+                                <option value="" disabled selected>Seleciona uma classificação</option>
+                                @for ($i = 5; $i >= 1; $i--)
+                                    <option value="{{ $i }}">{{ $i }} estrelas</option>
+                                @endfor
+                            </select>
+                        </div>
+
+                        {{-- Comentário --}}
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">Comentário:</label>
+                            <textarea name="comment" id="comment" class="form-control" maxlength="1000" placeholder="Escreve um comentario..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submeter</button>
+                    </form>
+
+                @endif
+            @else
+                <div class="alert alert-warning">Faz <a href="{{ route('login') }}">login</a> para deixar uma review.</div>
+            @endauth
+
+            {{-- Lista de Review --}}
+            @forelse ($reviews as $review)
+                <div class="border-bottom py-2">
+                    <strong>{{ $review->user->name }}</strong>
+                    <p class="mb-1">
+                        @for ($i = 1; $i <= 5; $i++)
+                            <span class="text-warning">{{ $i <= $review->rating ? '★' : '☆' }}</span>
+                        @endfor
+                    </p>
+                    <p class="mb-0">{{ $review->comment }}</p>
+                </div>
+            @empty
+                <p>Sem reviews ainda.</p>
+            @endforelse
+        </div>
     </div>
 @endsection
+

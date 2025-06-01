@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        {{-- Formulário de Login --}}
         <div class="border rounded shadow-sm p-4 w-100" style="max-width: 400px;">
             <h2 class="text-center mb-4">Login</h2>
 

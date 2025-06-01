@@ -21,7 +21,6 @@
     @yield('content')
 </div>
 <script>
-    // Espera 3 segundos e depois remove os alertas
     setTimeout(() => {
         const successAlert = document.getElementsByClassName('alert-success')[0];
         const errorAlert = document.getElementsByClassName('alert-danger')[0];
@@ -29,7 +28,6 @@
         if (successAlert) {
             successAlert.classList.remove('show');
             successAlert.classList.add('fade');
-            // Remove o alerta do DOM após a animação de fade
             setTimeout(() => {
                 successAlert.remove();
             }, 400);
@@ -38,7 +36,6 @@
         if (errorAlert) {
             errorAlert.classList.remove('show');
             errorAlert.classList.add('fade');
-            // Remove o alerta do DOM após a animação de fade
             setTimeout(() => {
                 errorAlert.remove();
             }, 400);

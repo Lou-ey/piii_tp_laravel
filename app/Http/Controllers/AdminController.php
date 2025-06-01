@@ -42,4 +42,13 @@ class AdminController extends Controller
 
         return redirect()->route('admin')->with('success', 'User created successfully!');
     }
+
+    public function removeUser($id) {
+        $user = User::findOrFail($id);
+        if ($user->is_admin) {
+            return redirect()->route('admin')->with('error', 'Cannot delete an admin user.');
+        }
+        $user->delete();
+        return redirect()->route('admin')->with('success', 'User deleted successfully!');
+    }
 }

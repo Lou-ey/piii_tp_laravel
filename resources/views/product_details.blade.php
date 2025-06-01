@@ -75,9 +75,9 @@
             </div>
             <div class="col-md-6">
                 <h1>{{ $product->name }}</h1>
-                <p><strong>Brand:</strong> {{ $product->brand }}</p>
-                <p><strong>Price:</strong> €{{ number_format($product->price, 2, ',', '.') }}</p>
-                <p><strong>Description:</strong> {{ $product->description }}</p>
+                <p><strong>Marca:</strong> {{ $product->brand }}</p>
+                <p><strong>Preço:</strong> €{{ number_format($product->price, 2, ',', '.') }}</p>
+                <p><strong>Descriçao:</strong> {{ $product->description }}</p>
             </div>
         </div>
 

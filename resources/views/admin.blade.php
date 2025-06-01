@@ -10,8 +10,10 @@
         </div>
         <div>
             <button class="btn btn-primary mb-3" onclick="window.location.href='{{ route('home') }}'">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+                     viewBox="0 0 16 16">
+                    <path
+                        d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
                 </svg>
                 Home
             </button>
@@ -31,18 +33,28 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs justify-content-center" id="adminTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">Lista de Utilizadores</button>
+            <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button"
+                    role="tab">Lista de Utilizadores
+            </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="create-user-tab" data-bs-toggle="tab" data-bs-target="#create-user" type="button" role="tab">Criar Utilizador</button>
+            <button class="nav-link" id="create-user-tab" data-bs-toggle="tab" data-bs-target="#create-user"
+                    type="button" role="tab">Criar Utilizador
+            </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="add-category-tab" data-bs-toggle="tab" data-bs-target="#add-category" type="button" role="tab">Adicionar Categoria</button>
+            <button class="nav-link" id="add-category-tab" data-bs-toggle="tab" data-bs-target="#add-category"
+                    type="button" role="tab">Adicionar Categoria
+            </button>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="add-product-tab" data-bs-toggle="tab" data-bs-target="#add-product" type="button" role="tab">Adicionar Produto</button>
+            <button class="nav-link" id="add-product-tab" data-bs-toggle="tab" data-bs-target="#add-product"
+                    type="button" role="tab">Adicionar Produto
+            </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="manage-products-tab" data-bs-toggle="tab" data-bs-target="#list-products" type="button" role="tab">Gerir Produtos</button>
+            <button class="nav-link" id="manage-products-tab" data-bs-toggle="tab" data-bs-target="#list-products"
+                    type="button" role="tab">Gerir Produtos
+            </button>
         </li>
     </ul>
 
@@ -53,7 +65,21 @@
             <h3>Utilizadores</h3>
             <ul class="list-group">
                 @foreach($users as $user)
-                    <li class="list-group-item">{{ $user->name }} @if($user->is_admin === true) (admin) @endif</li>
+                    <li class="list-group-item">{{ $user->name }} @if($user->is_admin === true)
+                            (admin)
+                        @endif
+                        <form action="{{ route('admin.removeUser', $user->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm float-end">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </li>
                 @endforeach
             </ul>
         </div>
@@ -84,7 +110,8 @@
                     <input type="password" name="password_confirmation" class="form-control" required>
                 </div>
                 <div class="form-check form-switch mb-3">
-                    <input class="form-check-input" type="checkbox" role="switch" id="adminSwitch" name="is_admin" value="1">
+                    <input class="form-check-input" type="checkbox" role="switch" id="adminSwitch" name="is_admin"
+                           value="1">
                     <label class="form-check-label" for="adminSwitch">Admin</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Create</button>
@@ -138,7 +165,8 @@
                     <input type="file" name="image_url" class="form-control" accept="image/*" required>
                 </div>
                 <div class="form-check form-switch mb-3">
-                    <input class="form-check-input" type="checkbox" role="switch" id="premiumSwitch" name="is_premium" value="1">
+                    <input class="form-check-input" type="checkbox" role="switch" id="premiumSwitch" name="is_premium"
+                           value="1">
                     <label class="form-check-label" for="premiumSwitch">Produto Original</label>
                 </div>
                 <!-- Campos só visíveis se NÃO for produto original -->
@@ -178,7 +206,7 @@
         window.addEventListener('DOMContentLoaded', toggleAlternativeFields);
     </script>-->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const premiumSwitch = document.getElementById('premiumSwitch');
             const fieldsToToggle = [
                 'original-product',
@@ -188,7 +216,7 @@
                 const disable = premiumSwitch.checked;
                 fieldsToToggle.forEach(id => {
                     const el = document.getElementById(id);
-                    if(el) el.disabled = disable;
+                    if (el) el.disabled = disable;
                 });
             }
 

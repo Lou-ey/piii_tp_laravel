@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('admin.storeUser');
     Route::post('/admin/categories', [CategoryController::class, 'storeCategory'])->name('admin.storeCategory');
     Route::post('/admin/products', [ProductController::class, 'storeProduct'])->name('admin.storeProduct');
+    Route::delete('/admin/delete-user/{id}', [AdminController::class, 'removeUser'])->name('admin.removeUser');
 });
 
 Route::get('/home', [HomeController::class, 'home'])->name('home');
@@ -32,4 +33,3 @@ Route::get('/home/products', [ProductController::class, 'showProducts'])->name('
 Route::get('/home/category/{id}/products', [ProductController::class, 'showProductsByCategory'])->name('productsByCategory');
 Route::get('/home/products/{id}', [ProductController::class, 'showProductDetails'])->name('productDetails');
 Route::post('/products/{productId}/review', [ReviewController::class, 'storeReview'])->name('product.review');
-

@@ -12,14 +12,16 @@
                 </svg>
             </a>
             <div class="d-flex">
-                <input type="text" class="form-control" placeholder="Search..." aria-label="Search">
-                <button class="btn btn-secondary" onclick="window.location.href='{{ route('searchProducts') }}'">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-search" viewBox="0 0 16 16">
-                        <path
-                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.397l3.85 3.85a1 1 0 0 0 1.414-1.414l-3.85-3.85zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                    </svg>
-                </button>
+                <form method="GET" action="{{ route('searchProducts') }}" class="d-flex" role="search">
+                    <input type="text" name="query" class="form-control me-2" placeholder="Search..." value="{{ request('query') }}" required>
+                    <button type="submit" class="btn btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.397l3.85 3.85a1 1 0 0 0 1.414-1.414l-3.85-3.85zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </button>
+                </form>
             </div>
             <div>
                 @if(Auth::user()->is_admin)

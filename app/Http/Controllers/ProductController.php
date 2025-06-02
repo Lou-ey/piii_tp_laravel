@@ -84,7 +84,7 @@ class ProductController extends Controller {
         // Se o utilizador autenticado já fez review
         $userReviewed = null;
         if (auth()->check()) {
-            $userReviewed = $product->reviews()->where('user_id', auth()->id())->first();
+            $userReviewed = $product->reviews()->where('user_id', auth()->id())->first(); //
         }
 
         return view('product_details', compact('product', 'alternatives', 'reviews', 'userReviewed'));
@@ -93,13 +93,19 @@ class ProductController extends Controller {
 
     public function searchProducts(Request $request) {
         $query = $request->input('query');
-        $products = Product::where('name', 'like', '%' . $query . '%')
-            ->orWhere('brand', 'like', '%' . $query . '%')
-            ->orWhere('description', 'like', '%' . $query . '%')
-            ->get();
 
-        return view('search_results', compact('products'));
+        $products = Product::where(function ($q) use ($query) {
+            $q->where('name', 'ILIKE', '%' . $query . '%')
+            ->orWhere('brand', 'ILIKE', '%' . $query . '%')
+                ->orWhere('description', 'ILIKE', '%' . $query . '%');
+        })->get();
+
+        return view('products', [
+            'products' => $products,
+            'category' => null
+        ]);
     }
+
 
     public function getAlternativeProductsByOriginalProductId($originalProductId) {
         $alternativeProducts = AlternativeRelation::where('premium_product_id', $originalProductId)

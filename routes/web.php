@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/home', [HomeController::class, 'home'])->name('home');
-Route::get('/search', [ProductController::class, 'searchProducts'])->name('searchProducts');
+Route::get('/home/products/search', [ProductController::class, 'searchProducts'])->name('searchProducts');
 Route::get('/home/products', [ProductController::class, 'showProducts'])->name('showProducts');
 Route::get('/home/category/{id}/products', [ProductController::class, 'showProductsByCategory'])->name('productsByCategory');
 Route::get('/home/products/{id}', [ProductController::class, 'showProductDetails'])->name('productDetails');

@@ -9,6 +9,10 @@ use App\Models\Review;
 class ReviewController extends Controller {
     public function store(Request $request, $productId)
     {
+        if (!$request->user()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         $request->validate([
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string',

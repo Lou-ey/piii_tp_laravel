@@ -22,4 +22,10 @@ Class Product extends Model {
     public function reviews() {
         return $this->hasMany(Review::class);
     }
+
+    public function alternatives()
+    {
+        return $this->belongsToMany(Product::class, 'alternative_relations', 'premium_product_id', 'alternative_product_id');
+    }
+
 }

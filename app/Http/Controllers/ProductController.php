@@ -50,7 +50,12 @@ class ProductController extends Controller {
             // dd($alternativeRelations);
         }
 
-        return redirect()->route('admin')->with('success', 'Produto adicionado com sucesso!');
+        // se estiver tudo ok
+        if ($product) {
+            return redirect()->route('admin')->with('success', 'Produto adicionado com sucesso!');
+        } else {
+            return redirect()->route('admin')->with('error', 'Erro ao adicionar o produto.');
+        }
     }
 
     public function showProducts() {

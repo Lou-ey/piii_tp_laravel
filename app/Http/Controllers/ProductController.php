@@ -6,6 +6,7 @@ use App\Models\AlternativeRelation;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Foundation\Configuration\Exceptions;
 
 class ProductController extends Controller {
     public function storeProduct(Request $request) {
@@ -17,8 +18,8 @@ class ProductController extends Controller {
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
             'image_url' => 'nullable|image|max:2048',
-            'original_product_id' => 'nullable|exists:products,id',
             'is_premium' => 'nullable|boolean',
+            'original_product_id' => 'nullable|exists:products,id',
         ]);
 
         if($request->hasFile('image_url')) {

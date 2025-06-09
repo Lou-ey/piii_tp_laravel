@@ -60,7 +60,6 @@
 
     <!-- Tab panes -->
     <div class="tab-content mt-3">
-        <!-- Lista de Utilizadores -->
         <div class="tab-pane fade show active" id="users" role="tabpanel">
             <h3>Utilizadores</h3>
             <ul class="list-group">

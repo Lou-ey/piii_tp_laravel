@@ -11,7 +11,9 @@ Route::get('/test', function () {
 });
 
 Route::get('/get/products', [ProductController::class, 'index'])->name('api.products.index'); // List all products
+
 Route::get('/get/products/{id}', [ProductController::class, 'show'])->name('api.products.show'); // Show a specific product by ID
+
 Route::get('/get/products/category/{id}', [ProductController::class, 'showProductsByCategory'])->name('api.products.category'); // Show products by category ID
 
 Route::get('/get/categories', [CategoryController::class, 'index'])->name('api.categories.index');

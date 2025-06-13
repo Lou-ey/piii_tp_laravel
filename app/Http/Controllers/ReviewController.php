@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 class ReviewController extends Controller {
     public function storeReview(Request $request, $product_id) {
         $validated = $request->validate([
-            //'user_id' => 'required|exists:users,id',
-            //'product_id' => 'required|exists:products,id',
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string|max:1000',
         ]);

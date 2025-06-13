@@ -62,7 +62,7 @@ class AuthController extends Controller {
             return redirect()->route('home');
         }
 
-        // Se não for admin, mostra o formulário normalmente
+        // Se não for admin
         return view('login');
     }
 

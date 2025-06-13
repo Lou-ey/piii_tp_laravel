@@ -117,7 +117,6 @@
                     <form action="{{ route('product.review', $product->id) }}" method="POST" class="mb-4">
                         @csrf
 
-                        {{-- Rating de 1 a 5 --}}
                         <div class="mb-3">
                             <label for="rating" class="form-label">Classificação:</label>
                             <select name="rating" id="rating" class="form-select" required>
@@ -128,7 +127,6 @@
                             </select>
                         </div>
 
-                        {{-- Comentário --}}
                         <div class="mb-3">
                             <label for="comment" class="form-label">Comentário:</label>
                             <textarea name="comment" id="comment" class="form-control" maxlength="1000" placeholder="Escreve um comentario..." required></textarea>
@@ -142,7 +140,6 @@
                 <div class="alert alert-warning">Faz <a href="{{ route('login') }}">login</a> para deixar uma review.</div>
             @endauth
 
-            {{-- Lista de Review --}}
                 @forelse ($reviews as $review)
                     <div class="border-bottom py-2">
                         <strong>{{ $review->user->name }}</strong>

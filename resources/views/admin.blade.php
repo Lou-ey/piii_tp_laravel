@@ -30,7 +30,6 @@
         </div>
     </div>
 
-    <!-- Nav tabs -->
     <ul class="nav nav-tabs justify-content-center" id="adminTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button"
@@ -58,7 +57,6 @@
         </li>
     </ul>
 
-    <!-- Tab panes -->
     <div class="tab-content mt-3">
         <div class="tab-pane fade show active" id="users" role="tabpanel">
             <h3>Utilizadores</h3>
@@ -83,7 +81,6 @@
             </ul>
         </div>
 
-        <!-- Criar Utilizador -->
         <div class="tab-pane fade" id="create-user" role="tabpanel">
             <h3>Criar Utilizador</h3>
             <form action="{{ route('admin.storeUser') }}" method="POST">
@@ -117,7 +114,6 @@
             </form>
         </div>
 
-        <!-- Adicionar Categoria -->
         <div class="tab-pane fade" id="add-category" role="tabpanel">
             <h3>Adicionar Categoria</h3>
             <form action="{{ route('admin.storeCategory') }}" method="POST">
@@ -130,7 +126,6 @@
             </form>
         </div>
 
-        <!-- Adicionar Produto -->
         <div class="tab-pane fade" id="add-product" role="tabpanel">
             <h3>Adicionar Produto</h3>
             <form action="{{ route('admin.storeProduct') }}" method="POST" enctype="multipart/form-data">
@@ -182,28 +177,12 @@
                 <button type="submit" class="btn btn-success">Adicionar</button>
             </form>
         </div>
-        <!-- Gerir Produtos -->
+
         <div class="tab-pane fade" id="list-products" role="tabpanel">
             <h3>Gerir Produtos</h3>
         </div>
     </div>
-    <!-- Script para mostrar/esconder campos -->
-    <!--<script>
-        const premiumSwitch = document.getElementById('premiumSwitch');
-        const altFields = document.getElementById('alternative-fields');
 
-        function toggleAlternativeFields() {
-            altFields.style.display = premiumSwitch.checked ? 'none' : 'block';
-            if (!premiumSwitch.checked) {
-                document.getElementById('original-product').setAttribute('required', 'required');
-            } else {
-                document.getElementById('original-product').removeAttribute('required');
-            }
-        }
-
-        premiumSwitch.addEventListener('change', toggleAlternativeFields);
-        window.addEventListener('DOMContentLoaded', toggleAlternativeFields);
-    </script>-->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const premiumSwitch = document.getElementById('premiumSwitch');
